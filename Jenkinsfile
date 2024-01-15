@@ -7,10 +7,15 @@ pipeline {
             }
         }
         stage('Compile') {
-            steps {
-                echo 'Compile the source code'
-                bat "mvn -Dmaven.test.failure.ignore=true clean package"
-            }
+    steps {
+        echo 'Compile the source code'
+        script {
+            def mavenHome = "C:\\Users\\t2112mn\\Downloads\\DevOps\\apache-maven-3.9.6"
+            bat "${mavenHome}\\bin\\mvn -Dmaven.test.failure.ignore=true clean package"
+        }
+    }
+}
+
             post {
                 always{
                     emailext body: 'The pipeline has failed, please go to Jenkins and check the problem', subject: 'Pipeline status', to: 'emileastih1@gmail.com'
